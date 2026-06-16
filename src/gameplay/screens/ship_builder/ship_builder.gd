@@ -1,4 +1,4 @@
-extends Control
+extends ScreenBase
 
 @export_group("Ship Resources")
 @export var ship_modules: Array[ModuleResource] = []
@@ -80,11 +80,13 @@ func in_bounds(c: Vector2i) -> bool:
 	return c.x >= 0 and c.y >= 0 and c.x < grid_cols and c.y < grid_rows
 	
 func _ensure_view() -> void:
-	if _view_initialized or size.x <= 0.0:
+	var canvas: Control = %Canvas
+	
+	if _view_initialized or canvas.size.x <= 0.0:
 		return
 	var bb := _modules_bbox()
 	var center_world := bb.position + bb.size / 2.0
-	pan = size / 2.0 - center_world * zoom
+	pan = canvas.size / 2.0 - center_world * zoom
 	_view_initialized = true
 
 func _compute_halo() -> Dictionary:

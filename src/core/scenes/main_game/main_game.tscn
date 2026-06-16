@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cd8eoqjmwlv0t"]
+
+[ext_resource type="Script" uid="uid://gckm3qa22fyo" path="res://src/core/scenes/main_game/main_game.gd" id="1_fjgca"]
+
+[node name="MainGame" type="Node" unique_id=769294257]
+script = ExtResource("1_fjgca")
+
+[node name="Systems" type="Node" parent="." unique_id=769313989]
+
+[node name="World" type="Node2D" parent="." unique_id=1856945571]
+
+[node name="LevelRoot" type="Node2D" parent="World" unique_id=423245191]
+unique_name_in_owner = true

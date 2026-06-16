@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cherenkov"
-run/main_scene="uid://c6au5hm751l38"
+run/main_scene="uid://cd8eoqjmwlv0t"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,8 +19,8 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [physics]
 

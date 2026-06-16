@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ModuleResource" format=3 uid="uid://86x6y4t4wf28"]
+
+[ext_resource type="Script" uid="uid://fbfvu6ure44" path="res://src/gameplay/game_objects/ship/module_resource.gd" id="1_s157s"]
+[ext_resource type="Texture2D" uid="uid://u10t3in6lh6a" path="res://assets/art/ship/modules/core_module.svg" id="2_nsxjq"]
+
+[resource]
+script = ExtResource("1_s157s")
+type_name = "core_module"
+texture = ExtResource("2_nsxjq")
+metadata/_custom_type_script = "uid://fbfvu6ure44"
