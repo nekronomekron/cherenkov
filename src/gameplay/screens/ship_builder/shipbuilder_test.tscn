@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d3pr3lkswe1u7"]
+
+[ext_resource type="PackedScene" uid="uid://cpauorwl6775a" path="res://src/gameplay/game_elements/ship_builder/ship_builder.tscn" id="1_qqdnq"]
+[ext_resource type="Script" uid="uid://bk3uc57pqk2i6" path="res://src/gameplay/screens/ship_builder/shipbuilder_test.gd" id="1_ycqxo"]
+
+[node name="ShipbuilderTest" type="Node" unique_id=551412424]
+script = ExtResource("1_ycqxo")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1420474172]
+offset_right = 1096.0
+offset_bottom = 646.0
+
+[node name="ShipBuilder" parent="PanelContainer" unique_id=1027819025 instance=ExtResource("1_qqdnq")]
+layout_mode = 2

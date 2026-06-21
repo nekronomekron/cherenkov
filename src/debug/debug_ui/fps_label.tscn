@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cb2o708lwnvus"]
+
+[ext_resource type="Script" uid="uid://bs1itv8w2mthh" path="res://src/debug/debug_ui/fps_label.gd" id="1_g1il8"]
+
+[node name="FpsLabel" type="Label" unique_id=2099871519]
+script = ExtResource("1_g1il8")

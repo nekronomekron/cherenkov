@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShipResource" format=3 uid="uid://bfikfl4gpmhti"]
+
+[ext_resource type="Script" uid="uid://fbfvu6ure44" path="res://src/gameplay/game_objects/ship/resource_definitions/module_resource.gd" id="1_1pada"]
+[ext_resource type="Script" uid="uid://d82cwuxd4vgv" path="res://src/gameplay/game_objects/ship/resource_definitions/ship_resource.gd" id="2_eeiyr"]
+[ext_resource type="Resource" uid="uid://86x6y4t4wf28" path="res://src/resources/ship/modules/core_module.tres" id="2_t2k0n"]
+
+[resource]
+script = ExtResource("2_eeiyr")
+type_name = "basic"
+modules = Array[ExtResource("1_1pada")]([ExtResource("2_t2k0n")])
+metadata/_custom_type_script = "uid://d82cwuxd4vgv"

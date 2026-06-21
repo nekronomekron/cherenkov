@@ -1,11 +1,11 @@
 class_name MainGame
 extends Node
 
-const SHIP_BUILDER: String = "uid://bksqgvr5a3rn6"
+const SHIP_BUILDER: String = "uid://d3pr3lkswe1u7"
 
 @onready var levelRoot: Node2D = %LevelRoot
 
-var _current_screen: ScreenBase = null
+var _current_screen: BaseScene = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,13 +14,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func _get_test_ship() -> Ship:
-	var ship = Ship.new()
-	ship.add_module("core_module", [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)], true)
-	ship.add_module("core_module", [Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2), Vector2i(2, 3)], false)
-
-	return ship
 	
 func load_screen(screen_uid: String) -> void:
 	_load_screen.call_deferred(screen_uid)
@@ -38,7 +31,7 @@ func _load_screen(screen_uid: String) -> void:
 		push_error("Could not load screen as PackedScene: " + screen_uid)
 		return
 		
-	_current_screen = new_screen_packed.instantiate() as ScreenBase
+	_current_screen = new_screen_packed.instantiate() as BaseScene
 	if _current_screen == null:
 		push_error("Loaded screen is not of type ScreenBase or does not exist")
 		return
@@ -47,4 +40,6 @@ func _load_screen(screen_uid: String) -> void:
 	
 	await get_tree().process_frame
 
-	_current_screen.setup(_get_test_ship())
+	if _current_screen is ShipScene:
+		# _current_screen.setup(_get_test_ship())
+		pass

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cpauorwl6775a"]
+
+[ext_resource type="Script" uid="uid://bqa6ugftdupfx" path="res://src/gameplay/game_elements/ship_builder/ship_builder.gd" id="1_bpk40"]
+[ext_resource type="Script" uid="uid://d82cwuxd4vgv" path="res://src/gameplay/game_objects/ship/resource_definitions/ship_resource.gd" id="2_4v73r"]
+[ext_resource type="Resource" uid="uid://bfikfl4gpmhti" path="res://src/resources/ship/basic_ship.tres" id="3_kl4t7"]
+
+[node name="ShipBuilder" type="Control" unique_id=1027819025]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_bpk40")
+ship_types = Array[ExtResource("2_4v73r")]([ExtResource("3_kl4t7")])
+
+[node name="ViewRoot" type="Node2D" parent="." unique_id=768155031]
+unique_name_in_owner = true
+
+[node name="TilesRoot" type="Node2D" parent="ViewRoot" unique_id=1309965318]
+unique_name_in_owner = true
+
+[connection signal="resized" from="." to="." method="_on_resized"]

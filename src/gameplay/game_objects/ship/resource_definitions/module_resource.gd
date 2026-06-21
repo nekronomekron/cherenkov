@@ -3,4 +3,4 @@ extends Resource
 
 @export var type_name: String
 
-@export var texture: Texture
+@export var sprite_frames: SpriteFrames
