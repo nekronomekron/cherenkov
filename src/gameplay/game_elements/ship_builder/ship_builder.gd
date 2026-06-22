@@ -19,20 +19,12 @@ extends Control
 
 @export var pan_pad: float = 70.0
 
-@export var pan: Vector2 = Vector2.ZERO:
-	get:
-		return pan
-	set(value):
-		pan = value
-		
-@export var zoom: float = 1.0:
-	get:
-		return zoom
-	set(value):
-		zoom = value
+@export var pan: Vector2 = Vector2.ZERO
+@export var zoom: float = 1.0
 
 @onready var _view_root: Node2D = %ViewRoot
 @onready var _tiles_root: Node2D = %TilesRoot
+@onready var _halo_layer: Node2D = %HaloLayer
 
 var _view_initialized := false
 
@@ -111,6 +103,39 @@ func _get_module_resource_for_type(module_type: String) -> ModuleResource:
 			
 	return null
 
+func _compute_halo() -> Dictionary:
+	var occupied_cells: Array[Vector2i] = []
+	for module in _modules:
+		occupied_cells.append_array(module.cells)
+	
+	var halo := {}
+	
+	for module_cell in occupied_cells:
+		for dy in range(-2, 3):
+			for dx in range(-2, 3):
+				if dx == 0 and dy == 0:
+					continue
+				var cell: Vector2i = module_cell + Vector2i(dx, dy)
+				if occupied_cells.has(cell) or not in_bounds(cell):
+					continue
+				var d := sqrt(float(dx * dx + dy * dy))
+				var a := clampf((2.3 - d) / 1.3, 0.0, 1.0) * 0.5
+				if a <= 0.01:
+					continue
+				halo[cell] = maxf(halo.get(cell, 0.0), a)
+				
+	return halo
+
+func _draw_halo() -> void:
+	var halo := _compute_halo()
+	
+	for cell in halo:
+		var a: float = halo[cell]
+		var r := Rect2(Vector2(cell.x * cell_size, cell.y * cell_size), Vector2(cell_size, cell_size)).grow(-2.0)
+		
+		_halo_layer.draw_rect(r, Color(grid_color, a * 0.10), true)
+		_halo_layer.draw_rect(r, Color(grid_color, a * 0.5), false, 1.5)
+
 func _refresh() -> void:
 	if _tiles_root == null || _ship_type == null:
 		return
@@ -137,8 +162,41 @@ func _refresh() -> void:
 			sprite.position = Vector2(cell.x * cell_size + cell_size / 2.0, cell.y * cell_size + cell_size / 2.0)
 			_tiles_root.add_child(sprite)
 			
+	if _halo_layer != null:
+		_halo_layer.queue_redraw()
+
+func in_bounds(cell: Vector2i) -> bool:
+	return cell.x >= 0 and cell.y >= 0 and cell.x < grid_cols and cell.y < grid_rows
+		
 func load_from_ship(ship: Ship) -> void:
 	_ship_type = ship.type
 	_modules = ship.get_modules().duplicate()
 	
+	var origin: Vector2i = Vector2i(floor(float(grid_cols) / 2) - 1, floor(float(grid_rows) / 2) - 1)
+	
+	for module in _modules:
+		var world_cells: Array[Vector2i] = []
+		for cell in module.cells:
+			world_cells.append(origin + cell)
+		
+		module.cells = world_cells		
+	
 	_refresh()
+	
+func pan_by(delta: Vector2) -> void:
+	pan += delta
+	
+	_clamp_pan()
+	_update_view()
+	
+func zoom_at(local: Vector2, factor: float) -> void:
+	var new_zoom := clampf(zoom * factor, zoom_min, zoom_max)
+	if is_equal_approx(new_zoom, zoom):
+		return
+	var world := (local - pan) / zoom
+	
+	zoom = new_zoom
+	pan = local - world * zoom
+	
+	_clamp_pan()
+	_update_view()

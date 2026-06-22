@@ -7,8 +7,11 @@
 script = ExtResource("1_ycqxo")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1420474172]
+clip_contents = true
 offset_right = 1096.0
 offset_bottom = 646.0
 
 [node name="ShipBuilder" parent="PanelContainer" unique_id=1027819025 instance=ExtResource("1_qqdnq")]
+unique_name_in_owner = true
 layout_mode = 2
+grid_color = Color(1, 0, 0, 1)

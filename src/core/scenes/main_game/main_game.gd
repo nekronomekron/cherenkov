@@ -12,7 +12,7 @@ func _ready() -> void:
 	load_screen(SHIP_BUILDER)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func load_screen(screen_uid: String) -> void:

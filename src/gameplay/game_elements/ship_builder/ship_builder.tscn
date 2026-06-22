@@ -16,4 +16,8 @@ unique_name_in_owner = true
 [node name="TilesRoot" type="Node2D" parent="ViewRoot" unique_id=1309965318]
 unique_name_in_owner = true
 
+[node name="HaloLayer" type="Node2D" parent="ViewRoot" unique_id=745525023]
+unique_name_in_owner = true
+
 [connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="draw" from="ViewRoot/HaloLayer" to="." method="_draw_halo"]
